@@ -18,7 +18,8 @@ body {
   border-radius: 20px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.2);
   text-align: center;
-  width: 320px;
+  min-width: 320px;
+  max-width: 900px; /* ✅ biar bisa panjang */
   animation: fadeIn 0.6s ease-in-out;
   position: relative;
   z-index: 1;
@@ -30,6 +31,12 @@ body {
   border: 4px solid #007bff;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   margin-bottom: 1rem;
+}
+.profile-text {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 1.5rem;
+  white-space: nowrap; /* ✅ Biar satu baris */
 }
 .box h1 {
   font-size: 1.6rem; margin-bottom: 1.2rem; color: #333;
@@ -62,16 +69,11 @@ body {
   width: 80%; height: 80%;
   overflow-y: auto;
   position: relative;
-
-  /* animasi saat muncul */
   transform: scale(0.8);
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-.gallery-box.show {
-  transform: scale(1);
-  opacity: 1;
-}
+.gallery-box.show { transform: scale(1); opacity: 1; }
 .close-btn {
   position: absolute;
   top: 12px; right: 12px;
@@ -100,39 +102,23 @@ body {
 }
 .gallery img:hover { transform: scale(1.05); }
 
-/* ✅ Responsive for mobile */
+/* ✅ Responsive */
 @media (max-width: 768px) {
-  .box {
-    width: 90%;
-    padding: 1.5rem;
-  }
-  .box h1 {
-    font-size: 1.3rem;
-  }
-  .btn {
-    width: 100%;
-    font-size: 0.9rem;
-  }
-  .gallery-box {
-    width: 95%;
-    height: 85%;
-    padding: 1rem;
-  }
-  .gallery {
-    grid-template-columns: 1fr; /* 1 kolom di HP */
-    gap: 0.7rem;
-  }
-  .profile-pic {
-    width: 100px;
-    height: 100px;
-  }
+  .box { width: 95%; }
+  .profile-text { font-size: 0.9rem; white-space: normal; } /* ✅ biar HP tetap rapi */
 }
-
   </style>
 </head>
 <body>
   <div class="box">
     <img src="circle-15.png" alt="Profile Picture" class="profile-pic">
+
+    <!-- ✅ Text profil di sini -->
+    <p class="profile-text">
+      I'm a passionate VFX creator, exploring scripting, animation, and world-building. 
+      I enjoy crafting anime-inspired abilities but can adapt to many different styles.
+    </p>
+
     <h1>Welcome to My Portfolio</h1>
     <a class="btn" href="https://discord.com/users/1181883118756565013" target="_blank">Contact Me on Discord</a>
     <a class="btn" id="openGallery">View My VFX Work</a>
@@ -146,7 +132,6 @@ body {
       <button class="close-btn" id="closeGallery">&times;</button>
       <h1 style="text-align:center; margin-bottom:1rem;">My VFX Project</h1>
       <div class="gallery">
-        <!-- contoh gambar -->
         <img src="screen.png" alt="VFX 1">
         <img src="vfx2.jpg" alt="VFX 2">
         <img src="vfx3.jpg" alt="VFX 3">
@@ -165,18 +150,13 @@ body {
 
     openBtn.addEventListener('click', () => {
       overlay.style.display = 'flex';
-      setTimeout(() => galleryBox.classList.add('show'), 10); // animasi masuk
+      setTimeout(() => galleryBox.classList.add('show'), 10);
     });
 
     closeBtn.addEventListener('click', () => {
-      galleryBox.classList.remove('show'); // animasi keluar
-      setTimeout(() => {
-        overlay.style.display = 'none';
-      }, 300); // tunggu animasi selesai
+      galleryBox.classList.remove('show');
+      setTimeout(() => { overlay.style.display = 'none'; }, 300);
     });
   </script>
 </body>
 </html>
-
-
-
