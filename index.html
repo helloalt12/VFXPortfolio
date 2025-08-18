@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My VFX Portfolio</title>
-  <link rel="icon" type="image/png" href="circle-15.png">
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio with VFX Modal</title>
+<link rel="icon" type="image/png" href="circle-15.png">
+<style>
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
 body, html { height: 100%; width: 100%; overflow: hidden; }
 body {
@@ -14,44 +14,44 @@ body {
 }
 .box {
   background: white;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   border-radius: 20px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.2);
   text-align: center;
-  min-width: 320px;
-  max-width: 900px; /* ✅ biar bisa panjang */
+  min-width: 280px;
+  max-width: 700px;
   animation: fadeIn 0.6s ease-in-out;
   position: relative;
   z-index: 1;
 }
 .profile-pic {
-  width: 120px; height: 120px;
+  width: 100px; height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #007bff;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  margin-bottom: 1rem;
+  border: 3px solid #007bff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  margin-bottom: 0.8rem;
 }
 .profile-text {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #444;
-  margin-bottom: 1.5rem;
-  white-space: nowrap; /* ✅ Biar satu baris */
+  margin-bottom: 1.2rem;
+  line-height: 1.3;
 }
 .box h1 {
-  font-size: 1.6rem; margin-bottom: 1.2rem; color: #333;
+  font-size: 1.4rem; margin-bottom: 1rem; color: #333;
 }
 .btn {
-  display: block; margin: 0.7rem auto;
-  padding: 0.8rem 1.2rem; width: 80%;
+  display: inline-block; 
+  margin: 0.5rem 0;
+  padding: 0.6rem 1rem;
   border: none; border-radius: 12px;
   background: #007bff; color: white;
-  font-size: 1rem; font-weight: bold;
+  font-size: 0.95rem; font-weight: bold;
   cursor: pointer; transition: 0.3s;
   text-decoration: none;
 }
 .btn:hover { background: #0056b3; transform: scale(1.03); }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Overlay & gallery modal styles */
 .overlay {
@@ -63,10 +63,11 @@ body {
 }
 .gallery-box {
   background: white;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   border-radius: 20px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-  width: 80%; height: 80%;
+  width: 80%; max-width: 800px;
+  height: 80%;
   overflow-y: auto;
   position: relative;
   transform: scale(0.8);
@@ -81,16 +82,16 @@ body {
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 0.5rem 0.8rem;
+  padding: 0.4rem 0.7rem;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   transition: background 0.3s;
 }
 .close-btn:hover { background: #0056b3; }
 .gallery {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: 0.8rem;
 }
 .gallery img {
   width: 100%;
@@ -105,26 +106,29 @@ body {
 /* ✅ Responsive */
 @media (max-width: 768px) {
   .box { width: 95%; }
-  .profile-text { font-size: 0.9rem; white-space: normal; } /* ✅ biar HP tetap rapi */
+  .profile-text { font-size: 0.9rem; line-height: 1.2; }
+  .btn { font-size: 0.9rem; padding: 0.5rem 0.8rem; }
 }
-  </style>
+</style>
 </head>
 <body>
   <div class="box">
     <img src="circle-15.png" alt="Profile Picture" class="profile-pic">
 
-    <!-- ✅ Text profil di sini -->
+    <!-- ✅ Text profil dibagi jadi beberapa baris -->
     <p class="profile-text">
-      I'm a passionate VFX creator, exploring scripting, animation, and world-building. 
-      I enjoy crafting anime-inspired abilities but can adapt to many different styles.
+      Passionate VFX creator exploring scripting & animation.<br>
+      I craft anime-inspired abilities and can adapt to many styles.
     </p>
 
     <h1>Welcome to My Portfolio</h1>
+
+    <!-- Tombol menyesuaikan panjang text, urutan lebar -> pendek -->
     <a class="btn" href="https://discord.com/users/1181883118756565013" target="_blank">Contact Me on Discord</a>
     <a class="btn" id="openGallery">View My VFX Work</a>
-    <a class="btn" href="https://paypal.me/yourpaypal" target="_blank">Donate via PayPal</a>
     <a class="btn" href="https://www.roblox.com/users/5223146360/profile" target="_blank">My Roblox Account</a>
-    <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" style="color:#000; text-decoration:none; white-space:nowrap;"> Dont Click Me </a>
+    <a class="btn" href="https://paypal.me/yourpaypal" target="_blank">Donate via PayPal</a>
+    <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" style="color:#000; text-decoration:none; white-space:nowrap;">Dont Click Me</a>
   </div>
 
   <div class="overlay" id="vfxOverlay">
@@ -160,4 +164,3 @@ body {
   </script>
 </body>
 </html>
-
