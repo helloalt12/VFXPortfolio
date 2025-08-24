@@ -3,224 +3,385 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Portfolio</title>
-<link rel="icon" type="image/png" href="circle-15.png">
+<title>Bro VFX Portfolio</title>
 <style>
-  /* Reset & global */
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-  body, html { height: 100%; width: 100%; overflow: hidden; }
-  body {
-    background: url("image.png") no-repeat center center/cover;
-    display: flex; align-items: center; justify-content: center;
+  html {
+    scroll-behavior: smooth;
   }
+/* ================== Reset & Base ================== */
+* { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body { 
+  background: linear-gradient(135deg, #0a1e33, #0d1f38); 
+  color:#fff; 
+  overflow-x:hidden; 
+  line-height:1.7;
+  user-select: none;          /* untuk hampir semua browser modern */
+  -webkit-user-select: none;  /* Safari/Chrome */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none;      /* Internet Explorer/Edge lama */
+}
+a { text-decoration:none; color: inherit; }
+h1,h2,h3,h4,h5,h6 { margin:0; font-weight:600; }
 
-  /* Box profil */
-    /* Box profil */
-  .box {
-    background: #fff; /* putih polos */
-    padding: 1.5rem; /* padding lebih kecil */
-    border-radius: 20px;
-    border: 3px solid black; /* stroke warna biru */
-    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-    text-align: center;
-    min-width: 250px;
-    max-width: 480px; /* dikecilkan biar lebih pas */
-    animation: fadeIn 0.6s ease-in-out;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
+/* ================== Header ================== */
+header {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:18px 50px; position:fixed; width:100%; top:0; z-index:100;
+  background: rgba(5,10,20,0.75); backdrop-filter: blur(8px);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+header h1 { font-size:1.8rem; letter-spacing:2px; color:#1ea7ff; font-weight:700; }
+nav a { margin-left:30px; font-weight:500; transition:0.3s; color:#bbb; }
+nav a:hover { color:#1ea7ff; }
 
+/* ================== Hero Section ================== */
+.hero {
+  position:relative; display:flex; flex-direction:column; justify-content:center; align-items:center;
+  height:100vh; text-align:center; padding:0 20px;
+}
+.hero h2 { 
+  font-size:3.5rem; 
+  margin-bottom:25px; 
+  margin-top:60px; /* diturunkan kebawah */
+  animation:fadeInUp 1s ease forwards; opacity:0; 
+  color:#1ea7ff; 
+  text-shadow:0 0 25px rgba(30,167,255,0.5);
+}
+.hero p { font-size:1.2rem; max-width:650px; animation:fadeInUp 1.3s ease forwards; opacity:0; color:#ccc; }
 
-  .profile-pic {
-    width: 110px; height: 110px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid black;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-    margin-bottom: 0.8rem;
-    align-self: center;
-  }
+#particles-js { position:absolute; width:100%; height:100%; top:0; left:0; z-index:0; }
 
-  .profile-text {
-    font-size: 1.15rem; /* lebih besar */
-    color: black;
-    line-height: 1.5;
-    margin-bottom: 1rem;
-  }
+/* Animations */
+@keyframes fadeInUp {
+  0% { opacity:0; transform:translateY(30px);}
+  100% { opacity:1; transform:translateY(0);}
+}
 
-  .box h1 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: black;
-  }
+/* ================== Portfolio Section ================== */
+.portfolio {
+  padding:100px 50px; 
+  background: linear-gradient(180deg, rgba(10,30,51,0.95), rgba(5,15,30,0.85));
+}
+.portfolio h2 { text-align:center; margin-bottom:60px; font-size:2.8rem; color:#1ea7ff; text-shadow:0 0 12px rgba(30,167,255,0.5); font-weight:700; }
+.videos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* default desktop */
+  gap: 20px;
+}
 
-  /* Container tombol biar bisa rata */
-  .btn-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
-    width: 100%;
-  }
+@media (max-width: 1024px) {
+  .videos { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .videos { grid-template-columns: 1fr; }
+}
 
-  /* Tombol */
-  .btn {
-    display: inline-block; 
-    padding: 0.8rem 1.4rem;
-    border: 3px solid black;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #007bff, #0056b3);
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    text-decoration: none;
-    width: 100%;
-    max-width: 250px; /* Semua tombol sama panjang mengikuti teks terpanjang */
-    text-align: center;
-  }
-  .btn:hover { background: linear-gradient(135deg, #0056b3, #003f80); transform: scale(1.05); }
+.video-card {
+  position:relative; overflow:hidden; border-radius:18px;
+  border:1px solid rgba(30,167,255,0.4); transition:0.5s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+}
+.video-card video { width:100%; height:100%; display:block; object-fit:cover; transition: transform 0.6s, filter 0.6s; border-radius:18px;}
+.video-card:hover { border-color:#1ea7ff; box-shadow:0 0 25px rgba(30,144,255,0.8); transform: translateY(-6px);}
+.video-card:hover video { transform:scale(1.07); filter:brightness(1.2) saturate(1.15); }
 
-  /* Link bergaya teks hitam */
-  .text-link {
-    display: block;
-    margin-top: 0.5rem;
-    color: black;
-    font-weight: bold;
-    text-decoration: underline;
-    cursor: pointer;
-    transition: color 0.3s, transform 0.2s;
-  }
-  .text-link:hover {
-    color: #333;
-    transform: scale(1.05);
-  }
+/* ================== About Section ================== */
+.about {
+  padding:100px 50px; display:flex; flex-wrap:wrap; align-items:center; gap:40px;
+  background: linear-gradient(180deg, rgba(5,15,30,0.9), rgba(10,30,51,0.9));
+}
+.profile-wrapper { position: relative; width: 280px; height: 280px; flex-shrink:0; }
+.profile-img {
+  width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+  z-index: 1; position: relative; border:3px solid #1ea7ff; box-shadow:0 0 25px rgba(30,167,255,0.5);
+}
+.profile-stroke {
+  position: absolute; top:0; left:0; width:100%; height:100%; border-radius:50%;
+  border:3px dashed rgba(30,167,255,0.6); 
+  animation: rotateStroke 8s linear infinite;
+}
+@keyframes rotateStroke { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.about-text { max-width:600px; }
+.about-text h2 { font-size:2.4rem; margin-bottom:20px; color:#1ea7ff; text-shadow:0 0 12px rgba(30,167,255,0.4); }
+.about-text p { font-size:1.1rem; line-height:1.8; color:#ccc; }
+.about-extra { margin-top:20px; }
+.about-extra ul { list-style:none; padding:0; }
+.about-extra ul li {
+  margin:8px 0; 
+  padding-left:25px; 
+  position:relative; 
+  color:#9fcfff;
+  font-size:1rem;
+}
+.about-extra ul li::before {
+  content:"★"; 
+  position:absolute; 
+  left:0; 
+  color:#1ea7ff; 
+  text-shadow:0 0 6px #1ea7ff;
+}
 
-  /* Overlay & gallery modal */
-  .overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: none; align-items: center; justify-content: center;
-    z-index: 10;
-  }
-  .gallery-box {
-    background: white;
-    padding: 1.5rem 2rem;
-    border: 3px solid black;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-    width: 80%; max-width: 800px;
-    height: 80%;
-    overflow-y: auto;
-    position: relative;
-    transform: scale(0.8);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-  .gallery-box.show { transform: scale(1); opacity: 1; }
-  .close-btn {
-    position: absolute;
-    top: 12px; right: 12px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 0.4rem 0.7rem;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: background 0.3s;
-  }
-  .close-btn:hover { background: #0056b3; }
+/* ================== Contact Section ================== */
+.contact { 
+  padding:100px 50px; 
+  text-align:center; 
+  position:relative;
+  overflow:hidden;
+  background: linear-gradient(180deg, rgba(10,30,51,0.95), rgba(5,15,30,0.9)); 
+}
 
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.8rem;
-  }
-  .gallery img {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
-  }
-  .gallery img:hover { transform: scale(1.05); }
+.contact::before, .contact::after {
+  content:"";
+  position:absolute;
+  width:120%;
+  height:2px;
+  background:linear-gradient(90deg, transparent, #1ea7ff, transparent);
+  top:20%;
+  left:-10%;
+  animation: neonMove 6s linear infinite;
+}
+.contact::after { top:80%; animation-delay:3s; }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .box { width: 95%; }
-    .profile-text { font-size: 1rem; line-height: 1.4; }
-    .btn { font-size: 0.95rem; padding: 0.7rem 1.2rem; max-width: 220px; }
-  }
+@keyframes neonMove {
+  0% { transform: translateX(-100%); opacity:0; }
+  30% { opacity:1; }
+  70% { opacity:1; }
+  100% { transform: translateX(100%); opacity:0; }
+}
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+.contact h2 { 
+  font-size:2.6rem; 
+  margin-bottom:40px; 
+  color:#1ea7ff; 
+  text-shadow:0 0 15px rgba(30,167,255,0.6);
+  position:relative;
+  z-index:2;
+}
+
+.contact-buttons { 
+  display:flex; 
+  flex-wrap:wrap; 
+  justify-content:center; 
+  gap:18px; 
+  position:relative;
+  z-index:2;
+}
+
+.contact-buttons a {
+  padding:14px 28px;
+  background: linear-gradient(135deg, #0d1f38, #102b4d); 
+  color:#fff; 
+  border-radius:14px; 
+  font-weight:600; 
+  font-size:1rem; 
+  transition:0.4s;
+  border:1px solid rgba(30,167,255,0.4);
+  box-shadow:0 0 10px rgba(30,167,255,0.2);
+}
+.contact-buttons a:hover {
+  background: linear-gradient(135deg, #021022, #1a90ff); 
+  box-shadow:0 0 25px rgba(30,144,255,0.8), 0 0 50px rgba(30,144,255,0.3);
+  transform:translateY(-4px);
+}
+
+/* ================== Scroll Animations ================== */
+.fadeIn { opacity:0; transform:translateY(20px); transition:1s ease; }
+.fadeIn.show { opacity:1; transform:translateY(0); }
+
+/* ================== Footer ================== */
+footer {
+  text-align:center;
+  padding:30px;
+  background:#050d18;
+  color:#888;
+  font-size:0.9rem;
+  border-top:1px solid rgba(255,255,255,0.05);
+}
+
+/* ================== Media Queries ================== */
+@media(max-width:1024px){
+  .hero h2 { font-size:2.8rem; } .hero p { font-size:1.05rem; }
+}
+@media(max-width:768px){
+  header { flex-direction: column; align-items:flex-start; }
+  nav a { margin:10px 10px 0 0; }
+  .hero h2 { font-size:2.2rem; } .hero p { font-size:1rem; }
+  .about { flex-direction:column; text-align:center; }
+}
+@media(max-width:480px){
+  .hero h2 { font-size:1.7rem; } .hero p { font-size:0.9rem; }
+}
+
+.portfolio-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+  margin-top: 60px;
+  gap: 20px;
+}
+
+.portfolio-header h2 {
+  margin: 0;
+  font-size: 2.4rem;
+  color: #1ea7ff;
+  text-shadow: 0 0 12px rgba(30,167,255,0.5);
+  font-weight: 700;
+}
+
 </style>
 </head>
 <body>
 
-<div class="box">
-  <img src="circle-15.png" alt="Profile Picture" class="profile-pic">
+<header>
+  <div style="display:flex; align-items:center; gap:12px; margin-left:-25px;">
+    <!-- Profil kecil di samping tulisan VFX PORTFOLIO -->
+    <div class="profile-wrapper" style="width:50px; height:50px;">
+      <img src="circle-15.png" alt="Profile Picture" class="profile-img">
+      <div class="profile-stroke"></div>
+    </div>
+    <h1>PORTFOLIO</h1>
+  </div>
+  <nav>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-  <p class="profile-text">
-  VFX creator skilled in scripting & animation.<br>
-  Specializing in anime-style and diverse effects.
-  </p>
 
-  <h1>Welcome to My Portfolio</h1>
 
-  <!-- Tombol vertikal -->
-  <div class="btn-container">
-    <a class="btn" id="openGallery">View My VFX Work</a>
-    <a class="btn" href="https://discord.com/users/1181883118756565013" target="_blank">Contact Me on Discord</a>
-    <a class="btn" href="https://www.roblox.com/users/5223146360/profile" target="_blank">My Roblox Account</a>
-    <a class="btn" href="https://paypal.me/yourpaypal" target="_blank">Donate via PayPal</a>
+<section class="hero">
+  <div id="particles-js"></div>
+  
+  <!-- Tambahkan profil dilingkari biru di atas teks -->
+  <div class="profile-wrapper fadeIn" style="margin-bottom:25px; width:200px; height:200px;">
+    <img src="circle-15.png" alt="Profile Picture" class="profile-img">
+    <div class="profile-stroke"></div>
   </div>
 
-  <!-- Teks hitam yang bisa ditekan -->
-  <a class="text-link" href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank">Dont Click Me!</a>
-</div>
+  <h2>VFX Creator & Animator</h2>
+  <p>Creating anime-inspired visual effects and cinematic sequences with 3 years of experience. Explore my portfolio below.</p>
+</section>
 
-<div class="overlay" id="vfxOverlay">
-  <div class="gallery-box" id="galleryBox">
-    <button class="close-btn" id="closeGallery">&times;</button>
-    <h1 style="text-align:center; margin-bottom:1rem;">My VFX Project</h1>
-    <div class="gallery">
-      <img src="screen.png" alt="VFX 1">
-      <img src="vfx2.jpg" alt="VFX 2">
-      <img src="vfx3.jpg" alt="VFX 3">
-      <img src="vfx4.jpg" alt="VFX 4">
-      <img src="vfx5.jpg" alt="VFX 5">
-      <img src="vfx6.jpg" alt="VFX 6">
+<section id="portfolio" class="portfolio">
+  
+  <!-- VFX Section -->
+  <div class="portfolio-header">
+    <h2>My VFX Work</h2>
+  </div>
+  <div class="videos">
+    <div class="video-card fadeIn"><video src="video1.mp4" autoplay loop muted playsinline></video></div>
+    <div class="video-card fadeIn"><video src="video2.mp4" autoplay loop muted playsinline></video></div>
+    <div class="video-card fadeIn"><video src="video3.mp4" autoplay loop muted playsinline></video></div>
+    <div class="video-card fadeIn"><video src="video4.mp4" autoplay loop muted playsinline></video></div>
+    <div class="video-card fadeIn"><video src="video5.mp4" autoplay loop muted playsinline></video></div>
+    <div class="video-card fadeIn"><video src="video6.mp4" autoplay loop muted playsinline></video></div>
+  </div>
+
+  <!-- Animation Section -->
+  <div class="portfolio-header">
+    <h2>My Animation Work</h2>
+  </div>
+  <div class="videos">
+    <div class="video-card fadeIn"><video src="video1.mp4" autoplay loop muted playsinline></video></div>
+    <div class="video-card fadeIn"><video src="video2.mp4" autoplay loop muted playsinline></video></div>
+    <div class="video-card fadeIn"><video src="video3.mp4" autoplay loop muted playsinline></video></div>
+    <div class="video-card fadeIn"><video src="video4.mp4" autoplay loop muted playsinline></video></div>
+    <div class="video-card fadeIn"><video src="video5.mp4" autoplay loop muted playsinline></video></div>
+    <div class="video-card fadeIn"><video src="video6.mp4" autoplay loop muted playsinline></video></div>
+  </div>
+
+</section>
+
+
+
+<section id="about" class="about">
+  <div class="profile-wrapper fadeIn">
+    <img src="circle-15.png" alt="Profile Picture" class="profile-img">
+    <div class="profile-stroke"></div>
+  </div>
+  <div class="about-text fadeIn">
+    <h2>About Me</h2>
+    <p><strong>VFX Creator & Animator</strong></p>
+    <p>I’m a passionate VFX creator exploring scripting, animation, and cinematic effects. Inspired by anime, I adapt my skills to create unique, dynamic visual stories. I love collaborating on creative projects and pushing the boundaries of visual effects.</p>
+    
+    <div class="about-extra">
+      <ul>
+        <li>✨ 3+ years of experience in VFX & Animation</li>
+        <li>🎬 Specializing in anime-inspired cinematic sequences</li>
+        <li>🖥️ Skilled in After Effects, Blender & scripting tools</li>
+        <li>🤝 Open for collaborations & creative projects</li>
+      </ul>
     </div>
   </div>
-</div>
+</section>
 
+<section id="contact" class="contact">
+  <h2>Contact Me</h2>
+  <div class="contact-buttons">
+    <a href="mailto:bro@example.com">Email</a>
+    <a href="https://discord.com/users/username" target="_blank">Discord</a>
+    <a href="https://www.instagram.com/username" target="_blank">Instagram</a>
+    <a href="https://www.roblox.com/users/5223146360/profile" target="_blank">Roblox</a>
+    <a href="https://twitter.com/username" target="_blank">Twitter</a>
+    <a href="https://www.tiktok.com/@username" target="_blank">TikTok</a>
+    <a href="https://www.youtube.com/@username" target="_blank">YouTube</a>
+    <a href="https://www.linkedin.com/in/username" target="_blank">LinkedIn</a>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 <script>
-  const openBtn = document.getElementById('openGallery');
-  const overlay = document.getElementById('vfxOverlay');
-  const galleryBox = document.getElementById('galleryBox');
-  const closeBtn = document.getElementById('closeGallery');
+particlesJS("particles-js", {
+  particles: {
+    number: { value: 300, density: { enable: true, value_area: 800 } },
+    color: { value: "#1ed6ff" },
+    shape: { type: "circle" },
+    opacity: { value: 0.6, random: true },
+    size: { value: 3, random: true },
+    line_linked: { enable: true, distance: 120, color: "#1ed6ff", opacity: 0.3, width: 1 },
+    move: { enable: true, speed: 4, random: true }
+  },
+  interactivity: {
+    detect_on: "canvas",
+    events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } },
+    modes: { repulse: { distance: 120, duration: 0.4 }, push: { particles_nb: 8 } }
+  },
+  retina_detect: true
+});
 
-  openBtn.addEventListener('click', () => {
-    overlay.style.display = 'flex';
-    setTimeout(() => galleryBox.classList.add('show'), 10);
+const faders = document.querySelectorAll('.fadeIn');
+const appearOptions = { threshold:0.3, rootMargin:"0px 0px -50px 0px" };
+const appearOnScroll = new IntersectionObserver(function(entries, observer){
+  entries.forEach(entry=>{
+    if(!entry.isIntersecting) return;
+    entry.target.classList.add('show');
+    observer.unobserve(entry.target);
   });
+}, appearOptions);
+faders.forEach(fader => appearOnScroll.observe(fader));
 
-  closeBtn.addEventListener('click', () => {
-    galleryBox.classList.remove('show');
-    setTimeout(() => { overlay.style.display = 'none'; }, 300);
+document.querySelectorAll('nav a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href');
+    const target = document.querySelector(targetId);
+    const headerOffset = 80; // tinggi header (sesuaikan)
+    const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+    const offsetPosition = elementPosition - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth"
+    });
   });
+});
+
+document.addEventListener("selectstart", e => e.preventDefault());
+document.addEventListener("dragstart", e => e.preventDefault());
+
 </script>
 
 </body>
 </html>
-
